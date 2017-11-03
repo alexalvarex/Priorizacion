@@ -1,0 +1,141 @@
+{% extends "base_in.html" %}
+
+{% block info %}
+
+
+<div class="container" align="center">
+<br>
+	
+		<div style="border: 2px solid #D3D0D0" class="col-sm-6 col-md-8 col-lg-8 mt-4">
+	<h1 class="rotateIn">Priorizar <strong> {{comunidad}} </strong></h1><br>
+	
+			<form action="/principal/priorizar/{{comunidad.id}}/add/" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-6">
+				
+				 <div class="form-group" style="text-align: left;">
+				 	<h2>Criterios</h2>
+				 	<p>Seleccione los criterios a priorizar.</p>
+				 	<input type="hidden" value="{{comunidad.id}}">
+			        <input type="checkbox" id="tone">
+			        <label for="tone">Toneladas Cosechadas</label><br>
+			        <input type="checkbox" id="ruta">
+			        <label for="ruta">Ruta Cañera o Procedencia</label><br>
+			        <input type="checkbox" id="agua">
+			        <label for="agua">Agua</label><br>
+			         <input type="checkbox" id="qmi">
+			        <label for="qmi">Quemas mal Intencionadas</label><br>
+			         <input type="checkbox" id="paso">
+			        <label for="paso">Paso de Caña</label>
+			    </div>
+
+			    <div class="form-group">
+					
+					<select name="alumno[]" style="width:100%" id="alumno" class="js-example-basic-multiples selectpicker" multiple="multiple" required>
+						<option value="" disabled selected>Seleccione</option>
+					  {% for a in criterios %}
+							<option value="{{ a.id }}">{{ a }}</option>
+						{% endfor %}
+					</select>
+					
+				</div>
+				
+				</div>
+
+				<div class="col-md-3">
+			    <div class="form-group agua">
+			        <h6 for="valoragua">Valor o Porcentaje del Criterio Agua</h6>
+			        <input type="text" id="valoragua" name="valoragua" class="form-control">
+			    </div>
+			    <div class="form-group tone">
+			        <h6 for="valortone">Valor o Porcentaje del Criterio Toneladas Cosechadas</h6>
+			        <input type="text" id="valortone" name="valortone" class="form-control">
+			    </div>
+			    <div class="form-group ruta">
+			        <h6 for="valorruta">Valor o Porcentaje del Criterio Ruta Cañera</h6>
+			        <input type="text" id="valorruta" name="valorruta" class="form-control">
+			    </div>
+			    </div>
+			    <div class="col-md-3">
+			    <div class="form-group qmi">
+			        <h6 for="valorqmi">Valor o Porcentaje del Criterio QMI</h6>
+			        <input type="text" id="valorqmi" name="valorqmi" class="form-control">
+			    </div>
+			    <div class="form-group paso">
+			        <h6 for="valorpaso">Valor o Porcentaje del Criterio Paso de Caña</h6>
+			        <input type="text" id="valorpaso" name="valorpaso" class="form-control">
+			    </div>
+			    </div>
+			    </div>
+				<div class="form-group">
+					<input data-toggle="modal" data-target="#cuidado" type="submit" value="Priorizar" class="btn info-color-dark">
+				</div>
+			</form>
+		</div>
+
+	
+	</div>	
+
+	<!-- Central Modal Medium Danger -->
+    <div class="modal fade" id="cuidado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead">Error</p>
+    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+    
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fa fa-exclamation fa-4x mb-3 animated rotateIn"></i>
+                        <p>Se ha exedido el limite de valor(100).</p>
+                    </div>
+                </div>
+    
+                <!--Footer-->
+                <div class="modal-footer justify-content-center">
+                    <a type="button" class="btn btn-primary-modal">Corregir <i class="fa fa-check ml-1"></i></a>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!-- Central Modal Medium Danger-->
+	
+{% endblock %}
+
+{% block js %}
+    <script>
+    	 $(document).ready(function(){
+            $('#valorpaso').mask('999')            
+            $('#valorqmi').mask('999')            
+            $('#valorruta').mask('999')            
+            $('#valortone').mask('999')            
+            $('#valoragua').mask('999') 
+            $('.paso').hide()            
+            $('.qmi').hide()            
+            $('.ruta').hide()            
+            $('.tone').hide()            
+            $('.agua').hide() 
+
+
+            $('input[type=checkbox]').on('change', function() {
+			    if ($(this).is(':checked') ) {
+			        $('.'+$(this).prop("id")).show()
+			    } else {
+			        $('.'+$(this).prop("id")).hide()
+			    }
+			});    
+			$('#alumno').on('change',function(){
+            		$('.tone').show()
+			});
+        })
+    </script>
+{% endblock js %}

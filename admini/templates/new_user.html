@@ -1,0 +1,155 @@
+{% extends "base_in.html" %}
+{% block container %}
+<div class="md-form">
+		<a class="btn btn-info" href="/principal/usuarios/">Ver Usuarios</a>
+</div>
+<div style="border: 2px solid #D3D0D0" class="container col-sm-6 col-md-12 col-lg-6 mt-4">
+<div class="col-md-offset-3 col-md-6" id="mensaje"></div>
+<form id="new_user" action="" method="post">
+{% csrf_token %}
+<br><br>
+    <h2 class="text-center">Registrar Usuario</h2>
+    <hr>
+	<div class="row">
+	<div class="col-md-6">
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="numid" name="numid" class="form-control">
+        <label for="numid">Identidad</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="nombre" class="form-control">
+        <label for="nombre">Nombre</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="apellido" class="form-control">
+        <label for="apellido">Apellido</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-phone prefix grey-text"></i>
+        <input type="text" id="telefono" class="form-control">
+        <label for="telefono">Telefono</label>
+    </div>
+    <div class="md-form">
+        <i class="fa fa-key prefix grey-text"></i>
+        <input type="text" id="codigo" class="form-control">
+        <label for="codigo">Código Colaborador</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="direccion" class="form-control">
+        <label for="direccion">Dirección Colaborador</label>
+    </div>
+
+	</div>
+	<div class="col-md-6">
+
+    <div class="md-form">
+        <i class="fa fa-phone prefix grey-text"></i>
+        <input type="text" id="celular" class="form-control">
+        <label for="celular">Celular</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="username" class="form-control">
+        <label for="username">Username</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-lock prefix grey-text"></i>
+        <input type="password" id="pass" class="form-control">
+        <label for="pass">Contraseña</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="text" id="correo" class="form-control">
+        <label for="correo">Correo</label>
+    </div>
+
+    <div class="form-group">
+        <label for="sexo">Seleccione Sexo</label>
+        <select class="form-control browser-default" id="sexo">
+		    {% for d in sexo  %}
+		    <option value="{{ d.id }}"> {{ d }} </option>
+		    {% endfor %}
+		</select>
+    </div>
+	
+	</div>
+	</div>
+	<div class="text-center">
+        <button id="alert-target" type="submit" class="btn btn-info">Guardar <i class="fa fa-paper-plane-o ml-1"></i></button>
+    </div>
+    
+</form>
+</div>
+
+{% endblock container %}
+
+{% block js %}
+	<script>
+		$(document).on('submit', '#new_user', function(e){
+			e.preventDefault();
+			var _numid = $('#numid').val()
+			var _fijo = $('#telefono').val()
+			var _cel = $('#celular').val()
+			var _correo = $('#correo').val()
+			var _sexo = $('#sexo').val()
+			var _user = $('#username').val()
+			var _pass = $('#pass').val()
+			var _nombre = $('#nombre').val()
+			var _apellido = $('#apellido').val()
+			var _direccion = $('#direccion').val()
+			var _codigo = $('#codigo').val()
+			var csfrm = $('input[name=csrfmiddlewaretoken]').val()
+			$.ajax({
+				type:'POST',
+				url:'/principal/usuarios/new/add/',
+				data:{
+					numid: _numid,
+					telefono: _fijo,
+					celular: _cel,
+					correo: _correo,
+					sexo: _sexo,
+					username: _user,
+					contra: _pass,
+					nombre: _nombre,
+					apellido: _apellido,
+					direccion: _direccion,
+					codigo: _codigo,
+					csrfmiddlewaretoken: csfrm
+				},
+				success: function(data){
+					var html = '<div class="alert alert-success alert-3d alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong><span class="fa fa-check fa-2x"></span></strong> Se ingreso con exito el docente ' + _nombre + ' ' + _apellido + ' satisfactoriamente.</div>'
+					$('#mensaje').html(html)
+					$('#numid').val('')
+					$('#nombre').val('')
+					$('#direccion').val('')
+					$('#apellido').val('')
+					$('#username').val('')
+					$('#telefono').val('')
+					$('#celular').val('')
+					$('#correo').val('')
+					$('#sexo').val('')
+					$('#pass').val('')
+					$('#codigo').val('')
+				}
+			});
+		});
+		$(document).ready(function(){
+        	$("#numid").mask("9999-9999-99999");
+            $("#telefono").mask("9999-9999");
+            $("#celular").mask("9999-9999");
+            
+        })
+	</script>
+{% endblock  %}

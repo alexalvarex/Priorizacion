@@ -1,0 +1,183 @@
+{% extends "base_in.html" %}
+{% block container %}
+<div class="container">
+<br>
+<div class="row">
+
+    
+      <a href="/principal/usuarios/new/" class="btn btn-info">Nuevo Usuario</a>
+    
+
+
+<div >
+    <br><h1 class="text-center">Usuarios Registrados</h1>
+    <br>
+    <table class="table">
+    	<thead>
+    		<tr>
+    			<th>Identidad</th>
+    			<th>Nombre Completo</th>
+    			<th>Dirección</th>
+    			<th>Telefonos</th>
+    			<th>Código Colaborador</th>
+    			<th>Username</th>
+    			<th>Sexo</th>
+    			<th>Último Login</th>
+    			<th></th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    	{% for d in data %}
+    		<tr>
+    			
+    				<td>{{d.Perfil.numid}}</td>
+    				<td>{{d.first_name}} {{d.last_name}}</td>
+    				<td>{{d.Perfil.direccion}}</td>
+    				<td>{{d.Perfil.telefono_f}} | {{d.Perfil.telefono_c}}</td>
+    				<td>{{d.Perfil.codigo}}</td>
+    				<td>{{d.username}}</td>
+    				<td>{{d.Perfil.sexo.sexo}}</td>
+    				{% if d.last_login == None %}
+                         <td>No ha iniciado sesión</td>
+                         {% else %}
+                           
+                       <td> <span title="{{ d.last_login }}">Hace {{ d.last_login| timesince }}</span></td>
+                       {% endif %}
+    				<td>
+						<div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn btn-info" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones </a>
+                                <div class="dropdown-menu dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a id="btn-editar" class="dropdown-item" href="" data-id="{{ d.id }}" data-numid="{{ d.Perfil.numid }}" data-nombre="{{ d.first_name }}" data-apellido="{{ d.last_name }}" data-direccion="{{ d.Perfil.direccion }}" data-telefono="{{ d.Perfil.telefono_f }}" data-celular="{{ d.Perfil.telefono_c }}" data-username="{{ d.username }}" data-sexo="{{ d.Perfil.sexo.id }}" data-toggle="modal" data-target="#edit_user">Editar</a>
+                                    <a class="dropdown-item btn-eliminar" href="">Eliminar</a>
+                                </div>
+                        </div>
+    				</td>
+    		</tr>
+    	{% endfor %}
+    	</tbody>
+    </table>
+    <strong><p>Número de Usuarios: {{numu}}</p></strong>
+</div>
+    <div class="modal fade" id="edit_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+	      </div>
+	      <div class="modal-body">
+	      	
+		        <form action="" method="post">
+		        {% csrf_token %}
+		                      <input type="hidden" id="iduseredit" name="id">
+		                      <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="numidedit" name="numid" class="form-text" required>
+			                    <label>Número Identidad</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="nombreedit" name="nombre" class="form-text" required>
+			                    <label>Nombre</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="apellidoedit" name="apellido" class="form-text" required>
+			                    <label>Apellido</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="direccionedit" name="direccion" class="form-text" required>
+			                    <label>Dirección</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="telefonoedit" name="telefono" class="form-text" required>
+			                    <label>Telefono</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="celularedit" name="celular" class="form-text" required>
+			                    <label>Celular</label>
+			                  </div>
+			                  <div class="form-group form-animate-text" style="margin-top:40px !important;">
+			                    <input type="text" id="usernameedit" name="username" class="form-text" required>
+			                    <label>Username</label>
+			                  </div>
+			                  <div class="form-group">
+		                          <label for="exampleSelect1">Seleccione Sexo</label>
+		                          <select class="form-control browser-default" id="exampleSelect1">
+		                          {% for d in sexo  %}
+		                              <option value="{{ d.id }}"> {{ d }} </option>
+		                          {% endfor %}
+		                          </select>
+		                          <!--/Blue select-->
+		                      </div>
+		                <button type="button" class="btn btn-danger btn-3d" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+		          <button type="submit" class="btn btn-success btn-3d btn-actualizar"><i class="fa fa-check"></i>Actualizar</button>
+		        </form>
+	        
+	      </div>
+	  	</div>
+	  </div>
+	</div>
+
+
+</div>
+</div>
+{% endblock container %}
+
+{% block js %}
+  <script>
+  $(document).ready(function() {
+
+    $('#btn-editar').click(function(e)
+    {
+      e.preventDefault();
+      var _id = $(this).attr('data-id');
+      var _numid = $(this).attr('data-numid');
+      var _nombre = $(this).attr('data-nombre');
+      var _apellido = $(this).attr('data-apellido');
+      var _direccion = $(this).attr('data-direccion');
+      var _telefono = $(this).attr('data-telefono');
+      var _celular = $(this).attr('data-celular');
+      var _username = $(this).attr('data-username');
+      var _sexo = $(this).attr('data-sexo');
+      $("#numidedit").val(_numid);
+      $("#nombreedit").val(_nombre);
+      $("#apellidoedit").val(_apellido);
+      $("#direccionedit").val(_direccion);
+      $("#telefonoedit").val(_telefono);
+      $("#celularedit").val(_celular);
+      $("#usernameedit").val(_username);
+      $("#sexo").val(_sexo);
+      $("#iduseredit").val(_id);  
+    });
+
+        $('.btn-actualizar').click(function(e){
+          var _numid = $('#numidedit').val()
+          var _nombre = $('#nombreedit').val()
+          var _apellido = $('#apellidoedit').val()
+          var _direccion = $('#direccionedit').val()
+          var _telefono = $('#telefonoedit').val()
+          var _sexo = $('#sexo').val()
+          var _id = $('#idstudentedit').val()
+          var csfrm = $('input[name=csrfmiddlewaretoken]').val()
+          $.ajax({
+            type:'POST',
+            url:'/principal/user/edit/' + _id + '/',
+            data:{
+            numid: _numid,
+            nombre: _nombre,
+            apellido: _apellido,
+            telefono: _telefono,
+            direccion: _direccion,
+            username: _username,
+            sexo: _sexo,
+            csrfmiddlewaretoken: csfrm
+            },
+            success: function(){
+              location.reload()
+            },
+            error: function()
+            {
+            }
+
+        });
+});
+});
+  </script>  
+{% endblock  %}

@@ -1,0 +1,130 @@
+{% extends "base_in.html" %}
+{% block container %}
+<div class="container">
+    <br><h1 class="text-center">Colaboradores Registrados</h1>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Identidad</th>
+          <th>Nombre Completo</th>
+          <th>Dirección</th>
+          <th>Telefonos</th>
+          <th>Correo</th>
+          <th>Estado Civil</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for d in data %}
+        <tr>
+          
+            <td>{{d.persona.numid}}</td>
+            <td>{{d.persona.nombre}} {{d.persona.apellido}}</td>
+            <td>{{d.persona.direccion}}</td>
+            <td>{{d.persona.telefono_f}} | {{d.persona.telefono_c}}</td>
+            <td>{{d.persona.correo}}</td>
+            <td>{{d.persona.estado_civil}}</td>
+            <td></td>
+            <td>
+            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn btn-info" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones </a>
+                                <div class="dropdown-menu dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a id="btn-editar" class="dropdown-item" href="" data-id="{{ d.id }}" data-nombreComunidad="{{ d.nombreComunidad }}" data-municipio="{{ d.municipio.id }}" data-toggle="modal" data-target="#edit_com">Editar</a>
+                                    <a class="dropdown-item btn-eliminar" href="">Eliminar</a>
+                                </div>
+                        </div>
+            </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <strong><p>Número de Comunidades: {{numc}}</p></strong>
+
+    <div class="modal fade" id="edit_com" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Editar Comunidad</h4>
+        </div>
+        <div class="modal-body">
+          
+            <form action="" method="post">
+            {% csrf_token %}
+                          <input type="hidden" id="idcomuedit" name="id">
+                        <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                          <input type="text" id="nomcedit" name="nomc" class="form-text" required>
+                          <label>Nombre Comunidad</label>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleSelect1">Seleccione Municipio</label>
+                          <select class="form-control browser-default" id="exampleSelect1">
+                          {% for d in data  %}
+                              <option value="{{ d.id }}"> {{ d }} </option>
+                          {% endfor %}
+                          </select>
+                          <!--/Blue select-->
+                        </div>
+                    <button type="button" class="btn btn-danger btn-3d" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+              <button type="submit" class="btn btn-success btn-3d btn-actualizar"><i class="fa fa-check"></i>Actualizar</button>
+            </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+{% endblock container %}
+
+{% block js %}
+  <script>
+  $(document).ready(function() {
+
+    $('#btn-editar').click(function(e)
+    {
+      e.preventDefault();
+      var _id = $(this).attr('data-id');
+      var _nomc = $(this).attr('data-nombreComunidad');
+      var _municipio = $(this).attr('data-municipio');
+      $("#nomcedit").val(_nomc);
+      $("#municipio").val(_municipio);
+      $("#idcomuedit").val(_id);  
+    });
+
+        $('.btn-actualizar').click(function(e){
+          var _numid = $('#numidedit').val()
+          var _nombre = $('#nombreedit').val()
+          var _apellido = $('#apellidoedit').val()
+          var _direccion = $('#direccionedit').val()
+          var _telefono = $('#telefonoedit').val()
+          var _sexo = $('#sexo').val()
+          var _id = $('#idstudentedit').val()
+          var csfrm = $('input[name=csrfmiddlewaretoken]').val()
+          $.ajax({
+            type:'POST',
+            url:'/principal/user/edit/' + _id + '/',
+            data:{
+            numid: _numid,
+            nombre: _nombre,
+            apellido: _apellido,
+            telefono: _telefono,
+            direccion: _direccion,
+            username: _username,
+            sexo: _sexo,
+            csrfmiddlewaretoken: csfrm
+            },
+            success: function(){
+              location.reload()
+            },
+            error: function()
+            {
+            }
+
+        });
+});
+        $('.mdb-select').material_select();
+});
+  </script>  
+{% endblock  %}
