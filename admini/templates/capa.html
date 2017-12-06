@@ -1,0 +1,82 @@
+{% extends "base_in.html" %}
+
+{% block container %}
+<div class="container">
+	<div class="row">
+	<div class="col-md-6">
+		<br>
+		<h3 class="dark-grey-text mb-5"><strong>Nueva Capa</strong></h3>
+		<h4>Actualmente hay {{numc}} zafra registradas</h4>
+		<div class="table-responsive" style=" overflow:scroll; overflow-y:hidden;">
+    <table  class="table table-striped table-bordered table-responsive datatable" cellspacing="0" width="100%">
+        <thead class="blue lighten-2 text-white">
+            <tr>
+                <th>Zafra</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in capa %}
+            <tr>
+                    <td>{{d.zafra}}</td>
+                    <td>{{d.inicio}}</td>
+                    <td>{{d.fin}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+	</div>
+
+ 	<div class="form-elegant col-md-6">
+		<br><br>
+		<form action="/principal/configuracion/add/" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+		    <!--Form without header-->
+		    <div class="card">
+
+		        <div class="card-body mx-4">
+
+		            <!--Header-->
+		            <div class="text-center">
+		                <h3 class="dark-grey-text mb-5"><strong>Nueva Capa</strong></h3>
+		            </div>
+
+		            <!--Body-->
+		            <div class="md-form">
+		                <input type="text" id="zafra" name="zafra" class="form-control">
+		                <label for="zafra">Zafra</label>
+		            </div>
+
+				     <div class="md-form form-check">
+				        <i class="fa fa-calendar-o prefix grey-text"></i>
+				        <input id="fechai" placeholder="Seleccione fecha" type="text" name="fechai" id="date-picker-example" class="form-control datepicker" required="">
+				        <label for="date-picker-example">Inicio de Zafra</label>
+				    </div>
+
+				    <div class="md-form form-check">
+				        <i class="fa fa-calendar-o prefix grey-text"></i>
+				        <input id="fechaf" name="fechaf" placeholder="Seleccione fecha" type="text" id="date-picker-example" class="form-control datepicker" required="">
+				        <label for="date-picker-example">Fin de Zafra</label>
+				    </div>
+
+		            <div class="text-center mb-3">
+		                <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Guardar</button>
+		            </div>
+
+		        </div>
+
+		        <!--Footer-->
+		        <div class="modal-footer mx-5 pt-3 mb-1">
+		            <p class="font-small grey-text d-flex justify-content-end">Recuerda que estos cambios afectará a la priorización de las comunidades.</p>
+		        </div>
+
+		    </div>
+		    <!--/Form without header-->
+		</form>
+</div>
+</div>
+</div>
+  
+{% endblock container %}

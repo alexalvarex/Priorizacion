@@ -14,97 +14,19 @@
 
     <!-- Logo -->
     <li>
-        <div class="logo-wrapper waves-light">
-            <br><a href="/" class="text-white"><h1 class="text-center">HRS</h1></a>
+        <div class="logo-wrapper waves-light" style="height: 200px">
+            <a href="#"><img src="{% static 'img/SPC.png' %}" class="img-fluid flex-center" style="width:100%; margin-left:auto; margin-right:auto"></a>
+            <br><br><h4 class="text-center">Sistema de Priorización de Comunidades</h4>
         </div>
-    </li>
-    <!--/. Logo -->
-
-    <!--Social
-    <li>
-        <ul class="social">
-            <li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
-            <li><a class="icons-sm pin-ic"><i class="fa fa-pinterest"> </i></a></li>
-            <li><a class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
-            <li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>
-        </ul>
-    </li> 
-    /Social-->
-
-    
+    </li>    
 
     <!-- Side navigation links -->
     <li>
         <ul class="collapsible collapsible-accordion">
 
             <!-- Collapsible link -->
-            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-graduation-cap"></i> Alumnos<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Listado de Alumnos</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Registrar Alumno</a>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Collapsible link -->
-            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-graduation-cap"></i> Promotores<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Listado de Promotores</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Registrar Promotor</a>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Collapsible link -->
-            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-user"></i> Facilitadores<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Listado de Facilitadores</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Nuevo Facilitador</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Collapsible link -->
-            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-sitemap"></i>Grados<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Listado de Grados</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Asignar Grado</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-sitemap"></i>Centros<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Listado de Centros</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Asignar Centro</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-             <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-users"></i>Matricula<i class="fa fa-angle-down rotate-icon"></i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a href="" class="waves-effect">Lista de Matriculas</a>
-                        </li>
-                        <li><a href="" class="waves-effect">Matricular Alumno</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Simple link -->
-            <li><a href="" class="waves-effect"><i class="fa fa-file-pdf-o"></i>Reportes</a></li>
-    
+            <li><a href="{% url 'all_comunidades' %}" class="waves-effect arrow-r"><i class="fa fa-check"></i> Comunidades</a></li>
+            <li><a href="{% url 'capa_comunidad' %}" class="waves-effect arrow-r"><i class="fa fa-check"></i> Comunidades Priorizadas</a></li>    
 
         </ul>
     </li>

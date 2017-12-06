@@ -1,0 +1,171 @@
+{% extends "base_in.html" %}
+
+{% block info %}
+    <br><h1 class="text-center">Lista de Comunidades de {{depto}}</h1>
+    
+    <br>
+    <div class="table-responsive" style=" overflow:scroll; overflow-y:hidden;">
+    <table id="example" class="table table-striped table-bordered table-responsive datatable" cellspacing="0" width="100%">
+        <thead class="blue lighten-2 text-white">
+            <tr>
+                <th>Nombre Comunidad</th>
+                <th>Municipio</th>
+                <th>Código</th>
+                <th>Tipo de Comunidad</th>
+                <th>Cant. de Varones</th>
+                <th>Cant. de Mujeres</th>
+                <th>Cant. de Casas</th>
+                <th>Abastecimiento de Agua</th>
+                <th>Procedencia</th>
+                <th>Toneladas</th>
+                <th>Tipo de Quemas</th>
+                <th>Ha</th>
+                <th>Ton/Ha</th>
+                <th>Ton Total</th>
+                <th>Productores Independientes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if depto.id == 1 %}
+            {% for d in comunidades_cholu %}
+            <tr>
+                    <td>{{d.nombre}}</td>
+                    <td>{{d.municipio}}</td>
+                    <td>{{d.codigo}}</td>
+                    <td>{{d.tipo_comunidad}}</td>
+                    <td>{{d.cant_h}}</td>
+                    <td>{{d.cant_m}}</td>
+                    <td>{{d.cant_c}}</td>
+                      <td>
+                    {% for a in d.agua.all  %}
+                      {{a}},
+                    {% endfor %}
+                    </td>
+                    <td>{{d.procedencia}}</td>
+                    <td>{{d.toneladas}}</td>
+                    <td>{{d.tipo_quema}}</td>
+                    <td>{{d.ha}}</td>
+                    <td>{{d.ton_ha}}</td>
+                    <td>{{d.ton_total}}</td>
+                    <td>{{d.pi}}</td>
+                     <td>
+                      <div class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle btn btn-info" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones </a>
+                                        <div class="dropdown-menu dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                            <a class="dropdown-item dropdown-danger btn-eliminar" href="{% url 'editar_comunidad' d.id %}">Editar</a>
+                                            <a class="dropdown-item dropdown-danger" data-toggle="modal" data-target="#confirmar2">Eliminar</a>
+
+                                        </div>
+                                </div>
+                                <!-- Central Modal Medium Danger -->
+                                <div class="modal fade" id="confirmar2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Confirmación para Eliminar</p>
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fa fa-times fa-4x mb-3 animated rotateIn"></i>
+                                                    <p>¿Seguro que desea eliminar esta comunidad?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+                                                <a type="button"  class="btn btn-primary-modal btn-eliminar" href="{% url 'comu_delete' d.id %}">SI <i class="fa fa-times ml-1"></i></a>
+                                                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">No</a>
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
+                                <!-- Central Modal Medium Danger-->
+                    </td>
+            </tr>
+           
+        {% endfor %}
+            <h4>Actualmente hay {{numc}} comunidades registradas, <a href="{% url 'new_comunidad' %}" class="btn btn-info">¿Desea agregar uno nuevo?</a></h4>
+        {% else %}
+            {% for d in comunidades_valle %}
+            <tr>
+                     <td>{{d.nombre}}</td>
+                    <td>{{d.municipio}}</td>
+                    <td>{{d.codigo}}</td>
+                    <td>{{d.tipo_comunidad}}</td>
+                    <td>{{d.cant_h}}</td>
+                    <td>{{d.cant_m}}</td>
+                    <td>{{d.cant_c}}</td>
+                      <td>
+                    {% for a in d.agua.all  %}
+                      {{a}},
+                    {% endfor %}
+                    </td>
+                    <td>{{d.procedencia}}</td>
+                    <td>{{d.toneladas}}</td>
+                    <td>{{d.tipo_quema}}</td>
+                    <td>{{d.ha}}</td>
+                    <td>{{d.ton_ha}}</td>
+                    <td>{{d.ton_total}}</td>
+                    <td>{{d.pi}}</td>
+                     <td>
+                      <div class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle btn btn-info" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones </a>
+                                        <div class="dropdown-menu dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                            <a class="dropdown-item dropdown-danger btn-eliminar" href="{% url 'editar_comunidad' d.id %}">Editar</a>
+                                            <a class="dropdown-item dropdown-danger" data-toggle="modal" data-target="#confirmar2">Eliminar</a>
+                                        </div>
+                                </div>
+                                <!-- Central Modal Medium Danger -->
+                                <div class="modal fade" id="confirmar2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-notify modal-danger" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <p class="heading lead">Confirmación para Eliminar</p>
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!--Body-->
+                                            <div class="modal-body">
+                                                <div class="text-center">
+                                                    <i class="fa fa-times fa-4x mb-3 animated rotateIn"></i>
+                                                    <p>¿Seguro que desea eliminar esta comunidad?</p>
+                                                </div>
+                                            </div>
+
+                                            <!--Footer-->
+                                            <div class="modal-footer justify-content-center">
+                                                <a type="button"  class="btn btn-primary-modal btn-eliminar" href="{% url 'comu_delete' d.id %}">SI <i class="fa fa-times ml-1"></i></a>
+                                                <a type="button" class="btn btn-outline-secondary-modal waves-effect" data-dismiss="modal">No</a>
+                                            </div>
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
+                                <!-- Central Modal Medium Danger-->
+                    </td>
+            </tr>
+        {% endfor %}
+            <h4>Actualmente hay {{numv}} comunidades registradas, <a href="{% url 'new_comunidad' %}" class="btn btn-info">¿Desea agregar uno nuevo?</a></h4>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+
+
+
+{% endblock %}

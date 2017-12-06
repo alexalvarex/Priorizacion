@@ -2,29 +2,41 @@
 
 {% block container %}
 
-<div style="margin-left: 340px" class="col-md-6 text-center" id="mensaje" >
+<div style="margin-left: auto;margin-right:auto" class="col-md-6 text-center" id="mensaje" >
   
 </div>
 <div style="border: 2px solid #D3D0D0" class="container col-sm-6 col-md-12 col-lg-6 mt-4">
-<form id="new_student" action="" method="post">
+<form id="new_student" action="/principal/comunidades/new/add/" method="post">
 {% csrf_token %}
 <br>
     <h2 class="text-center"> <a href="{% url 'all_comunidades' %}" class="btn cyan">Ver</a> Registrar Comunidad</h2>
     <hr>
 <p>Los elementos con <span style="color:red">*</span> son requeridos.</p>
     <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-4">
 
     <div class="md-form">
         <i class="fa fa-pencil prefix grey-text"></i>
         <input type="text" id="nombre" name="nombre" class="form-control" required="">
-        <label for="nombre">Nombre de la Comunidad <span style="color:red">*</span></label>
+        <label for="nombre">Nombre Comunidad <span style="color:red">*</span></label>
+    </div>
+
+     <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="number" min="0" max="999999" id="codigo" name="codigo" class="form-control" required="">
+        <label for="codigo">Código <span style="color:red">*</span></label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="toneladas" name="toneladas" class="form-control" required="">
+        <label for="toneladas">Toneladas <span style="color:red">*</span></label>
     </div>
 
      <div class="form-group">
         <i class="fa fa-globe prefix grey-text"></i>
         <label for="muni">Municipio <span style="color:red">*</span></label>
-        <select class="mdb-select colorful-select dropdown-primary" id="muni" searchable="Search here..">
+        <select class="mdb-select colorful-select dropdown-primary" name="muni" id="muni" searchable="Search here..">
         <option value="" disabled selected>Seleccione</option>
         <optgroup label="Choluteca">
         {% for g in municholu %}
@@ -37,11 +49,10 @@
         </select>
     </div>
 
-
-     <div class="form-group">
+    <div class="form-group">
         <i class="fa fa-pencil prefix grey-text"></i>
-        <label for="tipoc">Tipo Comunidad <span style="color:red">*</span></label>
-        <select class="mdb-selec colorful-select dropdown-primary" id="tipoc">
+        <label for="tipoc">Ruta <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="tipoc" id="tipoc">
         <option value="" disabled selected>Seleccione</option>
         {% for g in tipoc %}
             <option value="{{g.id}}"> {{g}} </option>
@@ -49,36 +60,46 @@
         </select>
     </div>
 
+    </div>
+
+    <div class="col-md-4">
+
     <div class="form-group">
-        <i class="fa fa-tint prefix grey-text"></i>
-        <label for="agua">Abastecimiento de Agua <span style="color:red">*</span></label>
-        <select class="mdb-selec colorful-select dropdown-primary" id="agua">
-        <option value="" disabled selected>Seleccione</option>
-        {% for g in agua %}
-            <option value="{{g.id}}"> {{g}} </option>
-        {% endfor %}
+        <label for="agua">Abastecimiento de Agua</label>
+        <select name="agua[]" style="width:100%" id="agua" class="js-example-basic-multiples selectpicker" multiple="multiple" required>
+            <option value="" disabled selected>Seleccione</option>
+          {% for a in agua %}
+                <option value="{{ a.id }}">{{ a }}</option>
+            {% endfor %}
         </select>
+        
     </div>
-
-    </div>
-
-    <div class="col-md-6">
    <div class="md-form">
         <i class="fa fa-check-square prefix grey-text"></i>
-        <input type="text" id="cant_h" name="cant_h" class="form-control">
+        <input type="number" id="cant_h" name="cant_h" class="form-control">
         <label for="cant_h">Cantidad de Varones</label>
     </div>
 
     <div class="md-form">
         <i class="fa fa-check-square prefix grey-text"></i>
-        <input type="text" id="cant_m" name="cant_m" class="form-control">
+        <input type="number" id="cant_m" name="cant_m" class="form-control">
         <label for="cant_m">Cantidad de Mujeres</label>
     </div>
 
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="number" id="cant_c" name="cant_c" class="form-control">
+        <label for="cant_m">Cantidad de Casas</label>
+    </div>
+
+    </div>
+
+    <div class="col-md-4">
+
     <div class="form-group">
         <i class="fa fa-graduation-cap prefix grey-text"></i>
-        <label for="des">Escuela <span style="color:red">*</span></label>
-        <select class="mdb-selec colorful-select dropdown-primary" id="des">
+        <label for="proce">Procedencia <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="proce" id="proce">
         <option value="" disabled selected>Seleccione</option>
         {% for g in des %}
             <option value="{{g.id}}"> {{g}} </option>
@@ -86,11 +107,40 @@
         </select>
     </div>
 
-    <div class="md-form nombree">
+    <div class="form-group">
+        <i class="fa fa-graduation-cap prefix grey-text"></i>
+        <label for="tipo_quema">Tipo de Quemas <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="tipo_quema" id="tipo_quema">
+        <option value="" disabled selected>Seleccione</option>
+        {% for g in quemas %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div> 
+
+    <div class="md-form">
         <i class="fa fa-check-square prefix grey-text"></i>
-        <input type="text" id="nombree" name="nombree" class="form-control" >
-        <label for="nombree">Nombre de la Escuela</label>
-    </div>     
+        <input type="text" id="ha" value="0" name="ha" class="form-control">
+        <label for="ha">Ha</label>
+    </div> 
+
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="text" id="ton_ha" value="0" name="ton_ha" class="form-control">
+        <label for="ton_ha">Ton/Ha</label>
+    </div> 
+
+    <div class="form-group">
+        <i class="fa fa-graduation-cap prefix grey-text"></i>
+        <label for="pi">Productores Independientes <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="pi" id="pi">
+        <option value="" disabled="" selected="">seleccione</option>
+        {% for g in des %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div>
+
 	
 	</div>
 	</div>
@@ -103,62 +153,3 @@
 
 
 {% endblock container %}
-
-{% block js %}
-	<script>
-		$(document).on('submit', '#new_student', function(e){
-			e.preventDefault();
-			var _nombre = $('#nombre').val()
-			var _tipoc = $('#tipoc').val()
-			var _muni = $('#muni').val()
-			var _agua = $('#agua').val()
-			var _cant_m = $('#cant_m').val()
-			var _cant_h= $('#cant_h').val()
-			var _des = $('#des').val()
-			var _nombree = $('#nombree').val()
-			var csfrm = $('input[name=csrfmiddlewaretoken]').val()
-
-			$.ajax({
-				type:'POST',
-				url:'/principal/comunidades/new/add/',
-				data:{
-					nombre: _nombre,
-					tipoc: _tipoc,
-					muni: _muni,
-					agua: _agua,
-					cant_m: _cant_m,
-					cant_h: _cant_h,
-					des: _des,
-					nombree: _nombree,
-					csrfmiddlewaretoken: csfrm
-				},
-				success: function(data){
-					var html = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><strong><span class="fa fa-check fa-2x"></span></strong> Se registró con exito la comunidad ' + _nombre + ' satisfactoriamente.</div>'
-					$('#mensaje').html(html)
-					$('#nombre').val('')
-					$('#tipoc').val('')
-					$('#muni').val('')
-					$('#agua').val('')
-					$('#cant_m').val('')
-					$('#cant_h').val('')
-					$('#des').val('')
-					$('#nombree').val('')	
-				},
-
-			});
-		});
-		$(document).ready(function(){
-            $('.nombree').hide()
-            $('#cant_m').mask('9999')
-            $('#cant_h').mask('9999')
-            $('select#des').on('change',function(){
-                var valor = $(this).val();
-                if (valor == 1)
-                    $('.nombree').show()
-            });
-
-            $('#muni').material_select();
-            
-        })
-	</script>
-{% endblock  %}

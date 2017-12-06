@@ -1,0 +1,54 @@
+{% extends "base_in.html" %}
+
+{% block container %}
+    <div class="container">
+      <br><h1>Comunidades Priorizadas</h1>
+      <br>
+
+        <a href="{% url 'priorizar_graficos' %}" class="btn btn-info">Gráficos de Criterios</a>
+<br><br>
+        <h4>Actualmente hay {{nump}} comunidades priorizadas en esta capa.</h4>
+      <div class="row">
+        
+
+        <div class="col-md-12">
+          <div class="sdksjdh" style=" overflow:scroll; overflow-y:hidden;">
+            <table id="example" class="table table-striped table-bordered table-responsive datatable" cellspacing="0" width="100%">
+                <thead class="blue lighten-2 text-white">
+                    <tr>
+                        <th>Nombre Comunidad</th>
+                        <th>Criterio Agua</th>
+                        <th>Criterio Toneladas Cosechadas</th>
+                        <th>Criterio Procedencia</th>
+                        <th>Criterio QMI</th>
+                        <th>Criterio Productores Independientes</th>
+                        <th>Criterio Ruta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for p in priorizar %}
+                    <tr>
+                            <td>
+                            {% for c in p.comunidad.all  %}
+                              {{c.nombre}},
+                            {% endfor %}
+                            </td>
+                            <td>{{p.valoragua}}</td>
+                            <td>{{p.valortone}}</td>
+                            <td>{{p.valorproce}}</td>
+                            <td>{{p.valorqmi}}</td>
+                            <td>{{p.valorpi}}</td>
+                            <td>{{p.valorruta}}</td>
+
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+{% endblock  %}

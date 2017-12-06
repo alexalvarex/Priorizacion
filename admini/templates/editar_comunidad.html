@@ -1,0 +1,153 @@
+{% extends "base_in.html" %}
+
+{% block container %}
+
+<div style="border: 2px solid #D3D0D0" class="container col-sm-6 col-md-12 col-lg-6 mt-4">
+<form id="new_student" action="/principal/comunidades/editar/add/" method="post">
+{% csrf_token %}
+<br>
+    <h2 class="text-center"> Editar Comunidad</h2>
+    <hr>
+<p>Los elementos con <span style="color:red">*</span> son requeridos.</p>
+    <div class="row">
+	<div class="col-md-4">
+	<input type="hidden" name="id" id="id" value="{{comunidad.id}}">
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="nombre" name="nombre" value="{{comunidad.nombre}}" class="form-control" required="">
+        <label for="nombre">Nombre de la Comunidad <span style="color:red">*</span></label>
+    </div>
+
+     <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="number" min="0" max="999999" id="codigo" name="codigo" value="{{comunidad.codigo}}" class="form-control" required="">
+        <label for="codigo">Código <span style="color:red">*</span></label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <input type="text" id="toneladas" name="toneladas" value="{{comunidad.toneladas}}" class="form-control" required="">
+        <label for="toneladas">Toneladas <span style="color:red">*</span></label>
+    </div>
+
+     <div class="form-group">
+        <i class="fa fa-globe prefix grey-text"></i>
+        <label for="muni">Municipio <span style="color:red">*</span></label>
+        <select class="mdb-select colorful-select dropdown-primary" name="muni" id="muni" searchable="Search here..">
+        <option value="{{comunidad.municipio.id}}" >{{comunidad.municipio}}</option>
+        <optgroup label="Choluteca">
+        {% for g in municholu %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        <optgroup label="Valle">
+        {% for g in munivalle %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <label for="tipoc">Ruta <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="tipoc" id="tipoc">
+        <option value="{{comunidad.tipo_comunidad.id}}" >{{comunidad.tipo_comunidad}}</option>
+        {% for g in tipoc %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+    <div class="form-group">
+        <label for="agua">Abastecimiento de Agua</label>
+        <select name="agua[]" style="width:100%" id="agua" class="js-example-basic-multiples selectpicker" multiple="multiple" required>
+        	{% for a in comunidad.agua.all  %}
+            	<option style="background-color:#5E6FED" value="{{a.id}}" selected="">{{a}}</option>
+        	{% endfor %}
+          {% for a in agua %}
+                <option value="{{ a.id }}">{{ a }}</option>
+            {% endfor %}
+        </select>
+        
+    </div>
+   <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="number" id="cant_h" name="cant_h" value="{{comunidad.cant_h}}" class="form-control">
+        <label for="cant_h">Cantidad de Varones</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="number" id="cant_m" name="cant_m" value="{{comunidad.cant_m}}" class="form-control">
+        <label for="cant_m">Cantidad de Mujeres</label>
+    </div>
+
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="number" id="cant_c" name="cant_c" value="{{comunidad.cant_c}}" class="form-control">
+        <label for="cant_m">Cantidad de Casas</label>
+    </div>
+    
+    </div>
+
+    <div class="col-md-4">
+
+    <div class="form-group">
+        <i class="fa fa-graduation-cap prefix grey-text"></i>
+        <label for="proce">Procedencia <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="proce" id="proce">
+        <option value="{{comunidad.procedencia.id}}">{{comunidad.procedencia}}</option>
+        {% for g in des %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div> 
+
+    <div class="form-group">
+        <i class="fa fa-graduation-cap prefix grey-text"></i>
+        <label for="tipo_quema">Tipo de Quemas <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="tipo_quema" id="tipo_quema">
+        <option value="{{comunidad.tipo_quema.id}}">{{comunidad.tipo_quema}}</option>
+        {% for g in quemas %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div> 
+
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="text" id="ha" name="ha" value="{{comunidad.ha}}" class="form-control">
+        <label for="ha">Ha</label>
+    </div> 
+
+    <div class="md-form">
+        <i class="fa fa-check-square prefix grey-text"></i>
+        <input type="text" id="ton_ha" name="ton_ha" value="{{comunidad.ton_ha}}" class="form-control">
+        <label for="ton_ha">Ton/Ha</label>
+    </div> 
+
+    <div class="form-group">
+        <i class="fa fa-graduation-cap prefix grey-text"></i>
+        <label for="pi">Productores Independientes <span style="color:red">*</span></label>
+        <select class="mdb-selec colorful-select dropdown-primary" name="pi" id="pi">
+        <option value="{{comunidad.pi.id}}">{{comunidad.pi}}</option>
+        {% for g in des %}
+            <option value="{{g.id}}"> {{g}} </option>
+        {% endfor %}
+        </select>
+    </div>
+	
+	</div>
+	</div>
+	<div class="form-group text-center">
+        <input type="submit" class="btn info-color-dark z-depth-2" value="Guardar">
+    </div>
+    
+</form>
+</div>
+
+
+{% endblock container %}

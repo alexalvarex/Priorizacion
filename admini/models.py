@@ -189,18 +189,32 @@ class AbasAgua(models.Model):
 		return self.agua
 
 @python_2_unicode_compatible
+class TipoQuema(models.Model):
+	tipo_quema = models.CharField(max_length=100)
+
+	def __str__(self):
+		return self.tipo_quema
+
+@python_2_unicode_compatible
 class Comunidad(models.Model):
 	nombre = models.CharField(max_length=100)
 	municipio = models.ForeignKey(Municipio, related_name='Municipio')
+	codigo = models.IntegerField(blank=True, null=True)
 	cant_m = models.IntegerField(blank=True, null=True)
 	cant_h = models.IntegerField(blank=True, null=True)
+	cant_c = models.IntegerField(blank=True, null=True)
 	tipo_comunidad = models.ForeignKey(TipoComunidad, related_name='Tipo_Comunidad')
-	des = models.ForeignKey(Descicion, related_name='Tiene_Escuela')
-	escuela = models.CharField(max_length=100, blank=True, null=True)
-	agua = models.ForeignKey(AbasAgua, related_name='Abastecimiento_Agua')
+	procedencia = models.ForeignKey(Descicion, related_name='Procedencia')
+	agua = models.ManyToManyField(AbasAgua, related_name='Abastecimiento_Agua')
+	toneladas = models.FloatField(blank=True, null=True)
+	tipo_quema = models.ForeignKey(TipoQuema, default=3)
+	ha = models.IntegerField(blank=True, null=True, default=0)
+	ton_ha = models.IntegerField(blank=True, null=True, default=0)
+	ton_total = models.FloatField(blank=True, null=True, default=0)
+	pi = models.ForeignKey(Descicion, related_name='Productores')
 
 	def __str__(self):
-		return self.nombre
+		return "%s - %s" %(self.nombre, self.municipio)
 
 @python_2_unicode_compatible
 class Mapa(models.Model):
@@ -276,10 +290,33 @@ class Finca(models.Model):
 		return "%s %s" %(self.codFinca, self.nombre)
 
 @python_2_unicode_compatible
-class Priorizar(models.Model):
-	comunidad = models.ForeignKey(Comunidad)
-	criterio = models.ManyToManyField(Criterio)
-	valor = models.IntegerField()
+class Capa(models.Model):
+	zafra = models.CharField(max_length=100)
+	inicio = models.DateField(blank=True, null=True)
+	fin = models.DateField(blank=True, null=True)
 
 	def __str__(self):
-		return "%s %s %s" %(self.comunidad, self.criterio, self.valor)
+		return "%s" %(self.zafra)
+
+@python_2_unicode_compatible
+class Priorizar(models.Model):
+	valoragua = models.IntegerField(null=True)
+	valorruta = models.IntegerField(null=True)
+	valortone = models.IntegerField(null=True)
+	valorproce = models.IntegerField(null=True)
+	valorqmi = models.IntegerField(null=True)
+	valorpi = models.IntegerField(null=True)
+	capa = models.ForeignKey(Capa)
+	comunidad = models.ManyToManyField(Comunidad)
+
+	def __str__(self):
+		return "%s" %(self.capa)
+
+@python_2_unicode_compatible
+class Resultados(models.Model):
+	comunidad = models.ForeignKey(Comunidad)
+	total = models.FloatField(blank=True, null=True)
+	criterios = models.ForeignKey(Priorizar)
+
+	def __str__(self):
+		return "%s - %s %s" %(self.comunidad, self.total, '%')

@@ -1,0 +1,116 @@
+{% extends "base_in.html" %}
+
+{% block container %}
+    
+<div class="container">
+
+<br><h1 class="text-center"><span class="badge blue">GRÁFICOS</span></h1>
+	<br>
+	<div class="row">
+		
+		<div class="col-md-12">
+
+	        <ul class="stepper stepper-horizontal">
+
+	            <li class="completed">
+	                <a href="#">
+	                    <span style="width:50px; height:50px" class="circle">91<br>100</span>
+	                    <span class="label">Platinum</span>
+	                </a>
+	            </li>
+
+	            <li class="active">
+	                <a href="#">
+	                    <span style="width:50px; height:50px" class="circle">81<br>90</span>
+	                    <span class="label">Oro</span>
+	                </a>
+	            </li>
+
+	            <li class="active">
+	                <a href="#">
+	                    <span style="width:50px; height:50px" class="circle"> 71<br>80 </span>
+	                    <span class="label">Plata</span>
+	                </a>
+	            </li>
+	            <li class="active">
+	                <a href="#">
+	                    <span style="width:50px; height:50px" class="circle"> 0<br>70 </span>
+	                    <span class="label">Bronce</span>
+	                </a>
+	            </li>
+
+	        </ul>
+
+	    	<hr>
+	    </div>
+
+
+		<div class="col-md-3" style=" overflow:scroll;height:315px;">
+			<h2 class="text-center">Comunidades <br> Platinum</h2>
+			<p>Total: {{numso}}</p>
+		    <ul class="list-group">
+		    	{% for p in sobresaliente %}
+		    			<li class="list-group-item d-flex justify-content-between align-items-center">
+					        {{p.comunidad}}
+					        <span class="badge badge-primary badge-pill">{{p.total}}%</span>
+				    	</li>
+		    	{% endfor %}
+			</ul>
+
+		</div>
+
+		<div class="col-md-3" style=" overflow:scroll;height:315px;">
+			<h2 class="text-center">Comunidades <br> Oro</h2>
+			<p>Total: {{nummb}}</p>
+		    <ul class="list-group">
+		    	{% for p in muybueno %}
+		    			<li class="list-group-item d-flex justify-content-between align-items-center">
+					        {{p.comunidad}}
+					        <span class="badge badge-primary badge-pill">{{p.total}}%</span>
+				    	</li>
+		    	{% endfor %}
+			</ul>
+		</div>
+		
+		<div class="col-md-3" style=" overflow:scroll;height:315px;">
+			<h2 class="text-center">Comunidades <br> Plata</h2>
+			<p>Total: {{numb}}</p>
+		    <ul class="list-group">
+		    	{% for p in bueno %}
+		    			<li class="list-group-item d-flex justify-content-between align-items-center">
+					        {{p.comunidad}}
+					        <span class="badge badge-primary badge-pill">{{p.total}}%</span>
+				    	</li>
+		    	{% endfor %}
+			</ul>
+		</div>
+
+		<div class="col-md-3" style=" overflow:scroll;height:315px;">
+			<h2 class="text-center">Comunidades <br> Bronce</h2>
+			<p>Total: {{numbronce}}</p>
+		    <ul class="list-group">
+		    	{% for p in bronce %}
+		    			<li class="list-group-item d-flex justify-content-between align-items-center">
+					        {{p.comunidad}}
+					        <span class="badge badge-primary badge-pill">{{p.total}}%</span>
+				    	</li>
+		    	{% endfor %}
+			</ul>
+		</div>
+
+	</div>
+<br><br>
+	<div class="row">
+		
+		<div class="col-md-12">
+			<input type="hidden" value="{{numso}}" id="sobresaliente">
+        	<input type="hidden" value="{{nummb}}" id="muybueno">
+        	<input type="hidden" value="{{numb}}" id="bueno">
+        	<input type="hidden" value="{{numbronce}}" id="bronce">
+            <div id="chartCategories" style="height: 400px; width: 100%; "></div>
+		</div>
+	</div>
+	
+</div>
+
+{% endblock container %}

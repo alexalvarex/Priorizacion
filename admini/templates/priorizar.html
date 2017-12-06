@@ -6,136 +6,95 @@
 <div class="container" align="center">
 <br>
 	
-		<div style="border: 2px solid #D3D0D0" class="col-sm-6 col-md-8 col-lg-8 mt-4">
-	<h1 class="rotateIn">Priorizar <strong> {{comunidad}} </strong></h1><br>
+		<div style="border: 2px solid #D3D0D0" class="col-sm-6 col-md-8 col-lg-12 mt-4">
+			<br>
+			<h1 class="rotateIn">Priorizar todas las comunidades</h1><br>
 	
-			<form action="/principal/priorizar/{{comunidad.id}}/add/" method="post" enctype="multipart/form-data">
+	
+			<form id="priorizar_nuevo" action="/principal/priorizar/add/" method="post" onsubmit="selecciona('comu')">
 			{% csrf_token %}
 			<div class="row">
 				<div class="col-md-6">
-				
-				 <div class="form-group" style="text-align: left;">
-				 	<h2>Criterios</h2>
-				 	<p>Seleccione los criterios a priorizar.</p>
-				 	<input type="hidden" value="{{comunidad.id}}">
-			        <input type="checkbox" id="tone">
-			        <label for="tone">Toneladas Cosechadas</label><br>
-			        <input type="checkbox" id="ruta">
-			        <label for="ruta">Ruta Cañera o Procedencia</label><br>
-			        <input type="checkbox" id="agua">
-			        <label for="agua">Agua</label><br>
-			         <input type="checkbox" id="qmi">
-			        <label for="qmi">Quemas mal Intencionadas</label><br>
-			         <input type="checkbox" id="paso">
-			        <label for="paso">Paso de Caña</label>
-			    </div>
+					<h1 >Criterios</h1>
+					<br>
+					<div class="form-group">
+				        <label for="comu">Comunidadades a Evaluar</label>
+				        <select name="comu[]" style="width:100%" id="comu" class="js-example-basic-multiples selectpicker" multiple="multiple" required>
+				            <option value="" disabled selected>Seleccione</option>
+				          {% for a in comu %}
+				                <option value="{{ a.id }}" selected="">{{ a }}</option>
+				            {% endfor %}
+				        </select>
+				    </div>
 
-			    <div class="form-group">
-					
-					<select name="alumno[]" style="width:100%" id="alumno" class="js-example-basic-multiples selectpicker" multiple="multiple" required>
-						<option value="" disabled selected>Seleccione</option>
-					  {% for a in criterios %}
-							<option value="{{ a.id }}">{{ a }}</option>
-						{% endfor %}
-					</select>
-					
-				</div>
+				<hr>
 				
 				</div>
 
 				<div class="col-md-3">
 			    <div class="form-group agua">
 			        <h6 for="valoragua">Valor o Porcentaje del Criterio Agua</h6>
-			        <input type="text" id="valoragua" name="valoragua" class="form-control">
+			        <input type="number" id="valoragua" min="0" value="0" max="100" name="valoragua" class="form-control" onblur="mensaje()">
 			    </div>
 			    <div class="form-group tone">
 			        <h6 for="valortone">Valor o Porcentaje del Criterio Toneladas Cosechadas</h6>
-			        <input type="text" id="valortone" name="valortone" class="form-control">
+			        <input type="number" id="valortone" min="0" value="0" max="100" name="valortone" class="form-control" onblur="mensaje()">
 			    </div>
 			    <div class="form-group ruta">
 			        <h6 for="valorruta">Valor o Porcentaje del Criterio Ruta Cañera</h6>
-			        <input type="text" id="valorruta" name="valorruta" class="form-control">
+			        <input type="number" id="valorruta" min="0" value="0" max="100" name="valorruta" class="form-control" onblur="mensaje()">
 			    </div>
 			    </div>
 			    <div class="col-md-3">
 			    <div class="form-group qmi">
 			        <h6 for="valorqmi">Valor o Porcentaje del Criterio QMI</h6>
-			        <input type="text" id="valorqmi" name="valorqmi" class="form-control">
+			        <input type="number" id="valorqmi" min="0" value="0" max="100" name="valorqmi" class="form-control" onblur="mensaje()">
 			    </div>
-			    <div class="form-group paso">
-			        <h6 for="valorpaso">Valor o Porcentaje del Criterio Paso de Caña</h6>
-			        <input type="text" id="valorpaso" name="valorpaso" class="form-control">
+			    <div class="form-group proce">
+			        <h6 for="valorproce">Valor o Porcentaje del Criterio de Procedencia</h6>
+			        <input type="number" id="valorproce" min="0" value="0" max="100" name="valorproce" class="form-control" onblur="mensaje()">
+			    </div>
+			    <div class="form-group pi">
+			        <h6 for="valorproce">Valor o Porcentaje del Criterio de Productores Independientes</h6>
+			        <input type="number" id="valorpi" min="0" value="0" max="100" name="valorpi" class="form-control" onblur="mensaje()">
 			    </div>
 			    </div>
 			    </div>
 				<div class="form-group">
-					<input data-toggle="modal" data-target="#cuidado" type="submit" value="Priorizar" class="btn info-color-dark">
+					<input type="submit" id="send" value="Priorizar" class="btn info-color-dark">
 				</div>
 			</form>
+	         <!--Total: <input id="mensaje" class="text-right">-->
 		</div>
 
-	
 	</div>	
 
-	<!-- Central Modal Medium Danger -->
-    <div class="modal fade" id="cuidado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-notify modal-danger" role="document">
-            <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
-                <div class="modal-header">
-                    <p class="heading lead">Error</p>
-    
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="white-text">&times;</span>
-                    </button>
-                </div>
-    
-                <!--Body-->
-                <div class="modal-body">
-                    <div class="text-center">
-                        <i class="fa fa-exclamation fa-4x mb-3 animated rotateIn"></i>
-                        <p>Se ha exedido el limite de valor(100).</p>
-                    </div>
-                </div>
-    
-                <!--Footer-->
-                <div class="modal-footer justify-content-center">
-                    <a type="button" class="btn btn-primary-modal">Corregir <i class="fa fa-check ml-1"></i></a>
-                </div>
-            </div>
-            <!--/.Content-->
-        </div>
-    </div>
-    <!-- Central Modal Medium Danger-->
 	
 {% endblock %}
 
 {% block js %}
     <script>
-    	 $(document).ready(function(){
-            $('#valorpaso').mask('999')            
-            $('#valorqmi').mask('999')            
-            $('#valorruta').mask('999')            
-            $('#valortone').mask('999')            
-            $('#valoragua').mask('999') 
-            $('.paso').hide()            
-            $('.qmi').hide()            
-            $('.ruta').hide()            
-            $('.tone').hide()            
-            $('.agua').hide() 
+	   $(document).ready(function(){
 
+		    $('#send').click(function(){
+	    		var _valoragua = $('#valoragua').val()
+				var _valorruta = $('#valorruta').val()
+				var _valorqmi = $('#valorqmi').val()
+				var _valorproce = $('#valorproce').val()
+				var _valorpi = $('#valorpi').val()
+				var _valortone = $('#valortone').val()
+				var _comu = $('#comu').val()
+				var _id = $('#id').val()
+				var csfrm = $('input[name=csrfmiddlewaretoken]').val()
 
-            $('input[type=checkbox]').on('change', function() {
-			    if ($(this).is(':checked') ) {
-			        $('.'+$(this).prop("id")).show()
-			    } else {
-			        $('.'+$(this).prop("id")).hide()
-			    }
-			});    
-			$('#alumno').on('change',function(){
-            		$('.tone').show()
-			});
-        })
+				var _total = parseInt(_valoragua) + parseInt(_valorproce) + parseInt(_valorpi) + parseInt(_valorqmi) + parseInt(_valorruta) + parseInt(_valortone)
+				if (_total > 100) {
+					alert('Ha excedido el limite de calificación')
+					return false
+				}
+			})
+
+	   })
+
     </script>
 {% endblock js %}

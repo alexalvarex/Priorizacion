@@ -1,22 +1,24 @@
 $(function(){
-	grafico()
+	var categorias = {
+                exportEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "Resultados por Categorías "
+                },
+                data: [
+                {
+                    type: "pie", //change it to line, area, bar, pie, etc
+                    startAngle: 240,
+                    yValueFormatString: "##0",
+                    indexLabel: "{label} {y}",
+                    dataPoints: [
+                        { y: $('#sobresaliente').val(), label: "Platinum" },
+                        { y: $('#muybueno').val(), label: "Oro" },
+                        { y: $('#bueno').val(), label: "Plata" },
+                        { y: $('#bronce').val(), label: "bronce" }
+                    ]
+                }
+                ]
+            };
+            $("#chartCategories").CanvasJSChart(categorias);
 });
-
-function grafico(tipo = "pie")
-{
-	var hc = Highcharts.chart('chart-grafico', {
-		data: 	 { table: 'data-grafico' },
-		chart: 	 { type: tipo },
-		title: 	 { text: 'Alumnos por Sexo' },
-		yAxis: 	 { allowDecimals: true, title: 'Sexo' },
-		tooltip: {
-			formatter: function(){
-				return '<strong>' + this.series.name + '</strong> <br/>' + this.point.y + ' ' + this.point.name.toLowerCase;
-			}
-		},
-		plotOptions: {
-			line: { dataLabels: true },
-			enableMouseTracking: false
-		}
-	});
-}

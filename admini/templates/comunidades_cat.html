@@ -1,245 +1,46 @@
-{% extends "base_in_admin.html" %}
+{% extends "base_in.html" %}
 
 {% block container %}
+
 <div class="container">
-    <div class="text-center">
-    	<br><h1 style="font-weight:bold">HRS</h1>
-        <p>(Human Resources System)</p>
-    </div>
-        <div class="row">
-            <div style="margin-left: 150px" class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card1">
-                    <img class="card1-img-top" src="http://www.eoi.es/blogs/madeon/files/2013/05/Apoyo-con-los-recursos-humanos1.jpg">
-                    <div class="card1-block">
-                        <figure class="profile">
-                            <img src="http://www.eoi.es/blogs/madeon/files/2013/05/Apoyo-con-los-recursos-humanos1.jpg" class="profile-avatar" alt="">
-                        </figure>
-                        <h4 class="card1-title mt-3">Recurso Humano</h4>
-                        <div class="meta">
-                            <a>Lorem</a>
-                        </div>
-                        <div class="card1-text">
-                            Ver información acerca de los colaboradores, así también las nóminas y compensaciones.
-                        </div>
-                    </div>
-                    <div class="card1-footer">
-                        <button data-toggle="modal" data-target="#myModal" class="btn btn-info float-right btn-sm">Ver Más</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card1">
-                    <img class="card1-img-top" src="https://www.sintesis.mx/wp-content/uploads/2017/06/rse_15.jpg">
-                    <div class="card1-block">
-                        <figure class="profile">
-                            <img src="https://www.sintesis.mx/wp-content/uploads/2017/06/rse_15.jpg" class="profile-avatar" alt="">
-                        </figure>
-                        <h4 class="card1-title mt-3">Desarrollo Social Comunitario</h4>
-                        <div class="meta">
-                            <a>DSC</a>
-                        </div>
-                        <div class="card1-text">
-                            Ver y/o priorizar las comunidades a partir de criterios dados.
-                        </div>
-                    </div>
-                    <div class="card1-footer">
-                        <button data-toggle="modal" data-target="#myModal2" class="btn btn-info float-right btn-sm">Ver Más</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card1">
-                    <img class="card1-img-top" src="http://helpmybusinesspos.info/wp-content/uploads/2015/02/Usuario-permisos_mybusinesspos-300x200.png">
-                    <div class="card1-block">
-                        <figure class="profile">
-                            <img src="http://helpmybusinesspos.info/wp-content/uploads/2015/02/Usuario-permisos_mybusinesspos-300x200.png" class="profile-avatar" alt="">
-                        </figure>
-                        <h4 class="card1-title mt-3">Usuarios</h4>
-                        <div class="meta">
-                            <a>Gestionar</a>
-                        </div>
-                        <div class="card1-text">
-                            Ver todos los usuarios con sus respectivos permisos
-                        </div>
-                    </div>
-                    <div class="card1-footer">
-                        <a href="/principal/usuarios/" class="btn btn-info float-right btn-sm">Ver Más</a>
-                    </div>
-                </div>
-            </div>
-	
-	<div id="myModal" class="modal fade">
-	  <div class="modal-dialog modal-lg bmd-modal-dialog">
-	    <div class="modal-content bmd-border-info">
-	      <div class="modal-header bmd-bg-info">
-	        <button type="button" class="close btn-link bmd-flat-btn bmd-flat-btn-light" data-dismiss="modal" aria-hidden="true">×</button>
-	        <h4 class="modal-title bmd-text-cyan-100">Recurso Humano</h4>
-	      </div>
-	      <div class="modal-body">
-            <h1>Modulo en Construcción. <i class="fa fa-exclamation"></i></h1>
-	        
-	        <div  class="row">
-			<div style="margin-left: 200px" class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card1">
-                    <img class="card1-img-top" src="https://www.acentual.com/images/articulos/colaboradores.png">
-                    <div class="card1-block">
-                        <figure class="profile">
-                            <img src="https://www.acentual.com/images/articulos/colaboradores.png" class="profile-avatar" alt="">
-                        </figure>
-                        <h4 class="card1-title mt-3">Colaboradores</h4>
-                        <div class="meta">
-                            <a></a>
-                        </div>
-                        <div class="card1-text">
-                            Ver las comunidades involucradas
-                        </div>
-                    </div>
-                    <div class="card1-footer">
-                        <small>Last updated 3 mins ago</small>
-                        <a href="#" class="btn btn-info float-right btn-sm">Ver Más</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                <div class="card1">
-                    <img class="card1-img-top" src="http://www.apertura.com/__export/1442512341095/sites/revistaap/img/clase/2015/09/17/sueldos_dolar_billete_imagen_copia_crop1442512335363.png_1913337537.png">
-                    <div class="card1-block">
-                        <figure class="profile">
-                            <img src="http://www.apertura.com/__export/1442512341095/sites/revistaap/img/clase/2015/09/17/sueldos_dolar_billete_imagen_copia_crop1442512335363.png_1913337537.png" alt="">
-                        </figure>
-                        <h4 class="card1-title mt-3">Compensaciones y Nominas</h4>
-                        <div class="meta">
-                            <a></a>
-                        </div>
-                        <div class="card1-text">
-                            Ver las comunidades involucradas
-                        </div>
-                    </div>
-                    <div class="card1-footer">
-                        <small>Last updated 3 mins ago</small>
-                        <button class="btn btn-info float-right btn-sm">Ver Más</button>
-                    </div>
-                </div>
-            </div>
-            </div>
-
-	      </div>
-	      <div class="modal-footer bmd-border-cyan-100">
-	        <button type="button" class="btn btn-default bmd-ripple bmd-ink-grey-400" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-
-	<div id="myModal2" class="modal fade">
-	  <div class="modal-dialog modal-lg bmd-modal-dialog">
-	    <div class="modal-content bmd-border-info">
-	      <div class="modal-header bmd-bg-info">
-	        <button type="button" class="close btn-link bmd-flat-btn bmd-flat-btn-light" data-dismiss="modal" aria-hidden="true">×</button>
-	        <h4 class="modal-title bmd-text-cyan-100">Desarrollo Social Comunitario</h4>
-	      </div>
-	      <div class="modal-body">
-	        
-	        <div  class="row">
-                <!--Card-->
-                <div class="card card-cascade wider reverse my-4">
-
-                    <!--Card image-->
-                    <div class="view overlay hm-white-slight">
-                        <img style="width:70%; margin-left:auto;margin-right:auto" src="http://lacomunidadviacelere.com/img/paginas/comunidad2.jpg" class="img-fluid">
-                        <a href="#!">
-                            <div class="mask"></div>
-                        </a>
-                    </div>
-                    <!--/Card image-->
-
-                    <!--Card content-->
-                    <div class="card-body text-center">
-                        <!--Title-->
-                        <h4 class="card-title"><strong>Priorización</strong></h4>
-                        <h5 class="indigo-text"><strong>Zafra 2017-2018</strong></h5>
-
-                        <p class="card-text">Priorizar comunidades a partir de distintos criterios para su respectivo análisis e importancia.
-                        </p>
-
-                        <button type="button" class="btn btn-outline-success btn-rounded waves-effect"><i class="fa fa-check pr-2" aria-hidden="true"></i>Acceder</button>   
-
-                    </div>
-                    <!--/.Card content-->
-
-                </div>
-                <!--/.Card-->
-            </div>
-
-	      </div>
-	     
-	    </div>
-	  </div>
-	</div>
-
-    <div id="myModal3" class="modal fade">
-      <div class="modal-dialog modal-lg bmd-modal-dialog">
-        <div class="modal-content bmd-border-info">
-          <div class="modal-header bmd-bg-info">
-            <button type="button" class="close btn-link bmd-flat-btn bmd-flat-btn-light" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title bmd-text-cyan-100">Desarrollo Social Comunitario</h4>
+  <br>
+  <h1 class="text-center">Acceder a las comunidades</h1>
+    <div class="row">
+      <div class="col-md-3">
+      <div class="card">
+          <br><img class="img-fluid" src="https://cdn4.iconfinder.com/data/icons/online-marketing-hand-drawn-vol-4/52/setting__system__control__config__options__management__configure-256.png" style="width:50%; margin-left:auto; margin-right: auto" alt="Card image cap">
+          <div class="card-body">
+              <h4 class="card-title text-center">Configuración</h4>
+              <br>
+              <a href="{% url 'capa' %}" class="btn btn-info">Ver</a>
           </div>
-          <div class="modal-body">
-            
-            <div  class="row">
-                <div style="margin-left: 200px" class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                    <div class="card1">
-                        <img class="card1-img-top" src="http://www.laprensa.hn/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=kf50HMtK7kEILFjYOFOgYc$daE2N3K4ZzOUsqbU5sYtxSGmbbiG8hKwXBXnFEm6dWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&CONTENTTYPE=image/jpeg">
-                        <div class="card1-block">
-                            <figure class="profile">
-                                <img src="http://www.laprensa.hn/csp/mediapool/sites/dt.common.streams.StreamServer.cls?STREAMOID=kf50HMtK7kEILFjYOFOgYc$daE2N3K4ZzOUsqbU5sYtxSGmbbiG8hKwXBXnFEm6dWCsjLu883Ygn4B49Lvm9bPe2QeMKQdVeZmXF$9l$4uCZ8QDXhaHEp3rvzXRJFdy0KqPHLoMevcTLo3h8xh70Y6N_U_CryOsw6FTOdKL_jpQ-&CONTENTTYPE=image/jpeg" class="profile-avatar" alt="">
-                            </figure>
-                            <h4 class="card1-title mt-3">Zafra</h4>
-                            <div class="meta">
-                                <a>2017</a>
-                            </div>
-                            <div class="card1-text">
-                                Ver datos de zafra
-                            </div>
-                        </div>
-                        <div class="card1-footer">
-                            <small>Last updated 3 mins ago</small>
-                            <button class="btn btn-info float-right btn-sm">Ver Más</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
-                    <div class="card1">
-                        <img class="card1-img-top" src="https://s3-eu-west-1.amazonaws.com/staticupthemedia/upload/priorizar-organizacion-tiempo.jpg" style="height: 170px">
-                        <div class="card1-block">
-                            <figure class="profile">
-                                <img  src="https://s3-eu-west-1.amazonaws.com/staticupthemedia/upload/priorizar-organizacion-tiempo.jpg" class="profile-avatar" alt="">
-                            </figure>
-                            <h4 class="card1-title mt-3">Priorizar</h4>
-                            <div class="meta">
-                                <a>Criterios</a>
-                            </div>
-                            <div class="card1-text">
-                                Ver Prioridad que tienen las comunidades 
-                            </div>
-                        </div>
-                        <div class="card1-footer">
-                            <small>Last updated 3 mins ago</small>
-                            <button class="btn btn-info float-right btn-sm">Ver Más</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-          </div>
-          <div class="modal-footer bmd-border-cyan-100">
-            <button type="button" class="btn btn-default bmd-ripple bmd-ink-grey-400" data-dismiss="modal">Close</button>
-          </div>
-        </div>
       </div>
     </div>
+      <div class="col-md-3">
+      <div class="card">
+          <br><img class="img-fluid" src="https://cdn4.iconfinder.com/data/icons/socialcones/508/NextDoor-256.png" style="width:50%; margin-left:auto; margin-right: auto" alt="Card image cap">
+          <div class="card-body">
+              <h4 class="card-title text-center">Comunidades Priorizadas</h4>
+              <a href="{% url 'capa_comunidad' %}" class="btn btn-info">Ver</a>
+              <a class="btn btn-warning" href="{% url 'priorizar' %}">Nueva Priorización</a>
+          </div>
+      </div>
+    </div>
+  {% for g in data %}
 
+    <div class="col-md-3">
+      <div class="card">
+          <br><img class="img-fluid" src="https://cdn0.iconfinder.com/data/icons/tutor-icon-set/512/Globe_icon-256.png" style="width:50%; margin-left:auto; margin-right: auto" alt="Card image cap">
+          <div class="card-body">
+              <h4 class="card-title text-center">Comunidades <br>de {{g}}</h4>
+              <a href="{% url 'comunidadesxdepto' g.id %}" class="btn btn-info">Ver</a>
+          </div>
+      </div>
+    </div>
+    
+  {% endfor %}
+  </div>
+  
 </div>
  
 {% endblock  %}
